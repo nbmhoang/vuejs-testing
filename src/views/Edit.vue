@@ -42,7 +42,7 @@ export default {
         updateItem() {
             const uri = `item/${this.$route.params.id}`;
             this.axios.put(uri, this.item).then(() => {
-                this.$router.push({ name: 'Index' })
+                this.$router.push({ name: 'Home' })
             });
         }
     }
