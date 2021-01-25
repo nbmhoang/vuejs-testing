@@ -8,11 +8,11 @@
                 <form @submit.prevent="addItem">
                     <div class="form-group">
                         <label>Item Name: </label>
-                        <input type="text" v-model="item.name" class="form-control" />
+                        <input type="text" :value="item.name" @input="updateItemName" class="form-control" />
                     </div>
                     <div class="form-group">
                         <label>Item Price: </label>
-                        <input type="number" v-model="item.price" class="form-control" />
+                        <input type="number" :value="item.price" @input="updateItemPrice" class="form-control" />
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" value="Add Item" />
@@ -23,22 +23,21 @@
     </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
-    // components: {
-    //     name: 'AddItem'
-    // },
-    data() {
-        return {
-            item: {}
-        }
-    },
+    computed: mapState({
+        item: state => state.item.item
+    }),
     methods: {
-        addItem()  {
-            const uri = 'http://localhost:5000/api/v1/item';
-            this.axios.post(uri, this.item).then(res => {
-                console.log(res.data);
-            })
-        }
+        ...mapActions('item', [
+            'addItem'
+        ]),
+        updateItemName(e) {
+            this.$store.commit('item/updateItemName', e.target.value)
+        },
+        updateItemPrice(e) {
+            this.$store.commit('item/updateItemPrice', e.target.value)
+        },
     }
 }
 </script>

@@ -2,7 +2,8 @@
 <div class="container">
   <div id="nav">
     <router-link to="/create">Add Item</router-link> |
-    <router-link to="/">All Item</router-link>
+    <router-link to="/">All Item</router-link> |
+    <router-link to="/test">Test</router-link>
   </div>
   <router-view/>
 </div>

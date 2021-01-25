@@ -24,27 +24,17 @@
     </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
-    data() {
-        return {
-            items: []
-        }
-    },
-    created: function() {
-        this.fetchItems();
-    },
-    methods: {
-        fetchItems() {
-            const uri = 'item';
-            this.axios.get(uri).then(res => this.items = res.data);
-        },
-        deleteItem(itemId) {
-            const uri = `item/${itemId}`;
-            this.axios.delete(uri).then(() => {
-                console.log('deleted');
-                this.fetchItems();
-            });
-        }
-    }
+    computed: mapState({
+    items: state => state.item.all
+}),
+methods: mapActions('item', [
+'deleteItem'
+]),
+created () {
+    this.$store.dispatch('item/getAllItem')
+}
 }
 </script>
